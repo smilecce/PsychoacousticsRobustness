@@ -356,7 +356,7 @@
 <body>
     <div class="header card" id="top">
         <h1>
-            <span style="font-weight: bolder; color: #c03d3e;">PORSCHE</span>
+            <span style="font-weight: bolder; color: #c03d3e;">V-Moat</span>
             <span style="font-weight: bolder; color: #0b0b0b;">:</span>
             <span style="font-weight: normal; color: #0b0b0b;">Psychoacoustics-Oriented Provable Robustness To Audio
                 Adversarial Examples</span>
@@ -367,33 +367,9 @@
         </div>
 
         <p class="abstract">
-            Intelligent audio systems have been widely applied in various scenarios. However, their core component,
-            audio understanding algorithms, remains vulnerable to carefully designed, imperceptible perturbations (e.g.,
-            adversarial
-            examples) that can cause misclassification or erroneous decisions.
-            Certified defenses aim to provide a lower
-            bound on
-            the accuracy of deep learning algorithms under a specific perturbation constraint. Nevertheless, existing
-            work primarily
-            focuses on bounding adversarial perturbations under ℓp norms, failing to reflect human auditory perception
-            accurately.
-            This mismatch allows adversaries to craft imperceptible perturbations that bypass both human detection and
-            norm-based
-            defenses. In this paper, we propose a novel certified defense framework PORSCHE (psychoacoustics-oriented
-            randomized
-            smoothing scheme) for audio understanding algorithms. We present rigorous theoretical analysis and extensive
-            experiments
-            to show that PORSCHE provides a certified lower bound on the accuracy of audio understanding algorithms
-            under a
-            psychoacoustics-oriented noise audibility constraint. We conduct experiments to demonstrate that within the
-            limits of
-            human auditory perception, the model’s accuracy under adversarial attacks improves from 3.2% to at least
-            69.3%. This
-            paper bridges the gap between certified defenses and human auditory perception, establishing the
-            relationship between
-            model robustness and noise audibility.
-            Our demo is available on
-            https://psychoacousticsrobustness.github.io/PsychoacousticsRobustness/
+            Certified robustness provides a formal mathematical guarantee for the accuracy of deep learning models under adversarial attacks. Existing research, however, focuses primarily on the vision domain, where perturbations are typically treated as additive and isotropic, bounded by $\ell_p$ norms. In contrast, the inaudibility of adversarial perturbations in the acoustic domain is governed by the principles of psychoacoustics—specifically the phenomenon of auditory masking, where noise remains imperceptible if it falls below a frequency-dependent threshold.
+
+In this paper, we present V-Moat, a certified robustness framework designed specifically for audio adversarial examples. We first establish an audibility quantification model to align noise constraints with human auditory perception. Leveraging this model, V-Moat extends the randomized smoothing paradigm to the acoustic domain, utilizing a spectral-temporal transformation to handle anisotropic perturbations. Extensive experiments demonstrate that while maintaining human-level imperceptibility, V-Moat significantly bolsters model security, improving accuracy under attack from 3.2\% to at least 69.3\%. The demo of V-Moat is available on \url{https://psychoacousticsrobustness.github.io/PsychoacousticsRobustness/}.
 
         </p>
 
@@ -410,12 +386,12 @@
     <div class="card">
         <h2>Our Pipeline</h2>
         <p class="abstract">
-            PORSCHE (psychoacoustics-oriented randomized smoothing framework) provides a certified lower bound on the
+            V-Moat provides a certified lower bound on the
             accuracy of
             audio understanding algorithms under a psychoacoustics-oriented noise audibility constraint.
         </p>
         <p class="abstract">
-            The workflow of PORSCHE: PORSCHE turns an audio understanding model into a spectral-smoothed one such that
+            The workflow of V-Moat. V-Moat turns an audio understanding model into a spectral-smoothed one such that
             the robustness of the model can be certified. It first transforms the input audio into spectrogram via STFT.
             Then the thresholds in the context of the input audio are calculated. These thresholds determine an
             anisotropic Gaussian distribution, from which we sample multiple spectral noises and add to the original
@@ -433,7 +409,7 @@
     <div class="card">
         <h2>Compare to Undefended Model</h2>
         <p class="abstract">
-            Approximate certified accuracy of PORSCHE on the LibriSpeech test-clean set for the ASV task. The
+            Approximate certified accuracy of V-Moat on the LibriSpeech test-clean set for the ASV task. The
             hyperparameter σ controls a robustness/accuracy tradeoff. The dashed black line is an upper bound on the
             empirical robust accuracy of an undefended classifier with the base classifier's architecture. We observe
             that smoothing significantly enhances the robustness compared to the undefended baseline.
@@ -442,7 +418,7 @@
             Specifically, models are trained on VoxCeleb1 and VoxCeleb2, and evaluated on the LibriSpeech test-clean
             set, which is entirely disjoint from the training data. At a perceptual noise threshold of R = 0.032,
             the attacker achieves only 3.2% accuracy against the undefended model, demonstrating the effectiveness
-            of the targeted attack. In contrast, thanks to the spectrum smoothing effect of PORSCHE,
+            of the targeted attack. In contrast, thanks to the spectrum smoothing effect of V-Moat,
             the certified accuracy under the same perceptual constraint improves significantly to 61.6% (σ=10),
             68.7% (σ=20), 69.3% (σ=30), 61.6% (σ=40), and 59.5% (σ=50).
         </p>
